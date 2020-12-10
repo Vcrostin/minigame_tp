@@ -177,8 +177,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="sfml_app.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
