@@ -181,7 +181,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1.cpp" />
     <ClCompile Include="sfml_app.cpp" />
   </ItemGroup>
   <ItemGroup>
