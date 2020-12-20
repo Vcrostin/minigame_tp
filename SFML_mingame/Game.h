@@ -21,6 +21,9 @@ private:
 	void initVariables();
 	void initWindow();
 
+	// Logic
+	bool heroCheckBorder(sf::Vector2f a);
+
 public:
 	// Constructor / Destructor
 
