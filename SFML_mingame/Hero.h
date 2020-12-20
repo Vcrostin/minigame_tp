@@ -9,7 +9,7 @@ private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 
-public: 
+public:
 	Hero();
 	Hero(std::string fname);
 	~Hero();
@@ -18,6 +18,9 @@ public:
 	void setTexture(sf::Texture& text);
 	void setPosition(sf::Vector2f a);
 	void move(sf::Vector2f a);
+
 	sf::Sprite getSprite();
+
+	bool checkBorder(sf::Vector2f& a, sf::VideoMode& b);
 };
 
