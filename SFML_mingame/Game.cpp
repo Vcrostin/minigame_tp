@@ -15,7 +15,7 @@ void Game::initVariables() {
 	window = nullptr;
 
 	// set Hero
-	hero.setTexture("Hero.png");
+	hero.setTexture("resours/Hero_norm.png");
 	hero.setPosition(sf::Vector2f(10, 40));
 }
 
@@ -32,6 +32,10 @@ void Game::initWindow() {
 	background.setPosition(sf::Vector2f(0, 40));
 	background.setOutlineThickness(0.5f);
 	background.setOutlineColor(sf::Color::White);
+}
+
+bool Game::heroCheckBorder(sf::Vector2f a) {
+	return hero.checkBorder(a, videoMode);
 }
 
 void Game::update() {
@@ -64,13 +68,13 @@ void Game::pollEvent() {
 		case (sf::Event::KeyPressed):
 			if (event.key.code == sf::Keyboard::Escape)
 				window->close();
-			if (event.key.code == sf::Keyboard::W)
+			if (event.key.code == sf::Keyboard::W && heroCheckBorder(sf::Vector2f(0, -5)))
 				hero.move(sf::Vector2f(0, -5));
-			if (event.key.code == sf::Keyboard::A)
+			if (event.key.code == sf::Keyboard::A && heroCheckBorder(sf::Vector2f(-5, 0)))
 				hero.move(sf::Vector2f(-5, 0));
-			if (event.key.code == sf::Keyboard::S)
+			if (event.key.code == sf::Keyboard::S && heroCheckBorder(sf::Vector2f(0, 5)))
 				hero.move(sf::Vector2f(0, 5));
-			if (event.key.code == sf::Keyboard::D)
+			if (event.key.code == sf::Keyboard::D && heroCheckBorder(sf::Vector2f(5, 0)))
 				hero.move(sf::Vector2f(5, 0));
 			std::cout << hero.getSprite().getPosition().x << ' ' << hero.getSprite().getPosition().y << '\n';
 			break;
