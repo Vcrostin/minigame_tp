@@ -9,6 +9,8 @@ private:
 	sf::Texture texture;
 	sf::Sprite sprite;
 
+	int healthPoint;
+
 public: 
 	Hero();
 	Hero(std::string fname);
@@ -20,6 +22,7 @@ public:
 	void move(sf::Vector2f a);
 	
 	sf::Sprite getSprite();
+	int getHP();
 
 	bool checkBorder(sf::Vector2f& a, sf::VideoMode& b);
 };

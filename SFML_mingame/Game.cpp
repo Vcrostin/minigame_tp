@@ -1,10 +1,20 @@
 #include "Game.h"
 
+std::string strToInt(int a) {
+	std::string hp = "";
+	for (; a > 0; a /= 10) {
+		hp.push_back(a % 10 + '0');
+	}
+	reverse(hp.begin(), hp.end());
+	return hp;
+}
+
 // Constructor / Destructor
 
 Game::Game() {
 	initVariables();
 	initWindow();
+	initCrown();
 }
 
 Game::~Game() {
@@ -13,16 +23,15 @@ Game::~Game() {
 
 void Game::initVariables() {
 	window = nullptr;
+	videoMode.width = 1980;
+	videoMode.height = 1080;
 
 	// set Hero
 	hero.setTexture("resours/Hero_norm.png");
-	hero.setPosition(sf::Vector2f(10, 40));
+	hero.setPosition(sf::Vector2f(videoMode.width / 2, videoMode.height / 2));
 }
 
 void Game::initWindow() {
-	videoMode.width = 800;
-	videoMode.height = 600;
-
 	window = new sf::RenderWindow(videoMode, "Game");
 	window->setFramerateLimit(60);
 
@@ -30,8 +39,23 @@ void Game::initWindow() {
 	background.setSize(sf::Vector2f(videoMode.width, videoMode.height - 40));
 	background.setFillColor(sf::Color(0, 51, 0));
 	background.setPosition(sf::Vector2f(0, 40));
-	background.setOutlineThickness(0.5f);
+	background.setOutlineThickness(3);
 	background.setOutlineColor(sf::Color::White);
+}
+
+void Game::initCrown() {
+	if (!font.loadFromFile("resours/font.ttf")) {
+		std::cout << "Error.\n";
+		exit(1);
+	}
+}
+
+sf::Text Game::crown(std::string word, sf::Vector2f a) {
+	sf::Text text;
+	text.setFont(font);
+	text.setString(word);
+	text.setPosition(a);
+	return text;
 }
 
 bool Game::heroCheckBorder(sf::Vector2f a) {
@@ -53,6 +77,7 @@ void Game::render() {
 
 	window->draw(background);
 	window->draw(hero.getSprite());
+	window->draw(crown("HP: " + strToInt(hero.getHP()), sf::Vector2f(5, 5)));
 	// to do
 
 
@@ -85,3 +110,5 @@ void Game::pollEvent() {
 bool Game::running() {
 	return window->isOpen();
 }
+
+

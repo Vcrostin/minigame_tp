@@ -1,8 +1,11 @@
 #include "Hero.h"
 
-Hero::Hero() {}
+Hero::Hero() {
+	healthPoint = 100;
+}
 
 Hero::Hero(std::string fname) {
+	healthPoint = 100;
 	setTexture(fname);
 }
 
@@ -31,6 +34,10 @@ void Hero::move(sf::Vector2f a) {
 
 sf::Sprite Hero::getSprite() {
 	return sprite;
+}
+
+int Hero::getHP() {
+	return healthPoint;
 }
 
 bool Hero::checkBorder(sf::Vector2f& a, sf::VideoMode& b) {
