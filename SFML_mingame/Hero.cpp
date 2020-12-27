@@ -1,7 +1,7 @@
 #include "Hero.h"
 
-Hero::Hero() {
-	healthPoint = 100;
+Hero::Hero(int a) {
+	healthPoint = 100 + a * 10;
 }
 
 Hero::Hero(std::string fname) {

@@ -12,7 +12,7 @@ private:
 	int healthPoint;
 
 public: 
-	Hero();
+	Hero(int a = 0);
 	Hero(std::string fname);
 	~Hero();
 
