@@ -7,6 +7,7 @@
 #include "MFC_loader_SFML.h"
 #include "MFC_loader_SFMLDlg.h"
 #include "afxdialogex.h"
+#include "Dialog_Shop.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -54,6 +55,10 @@ CMFCloaderSFMLDlg::CMFCloaderSFMLDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MFC_LOADER_SFML_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+
+	VERIFY(m_bmpBack.LoadBitmap(IDB_BITMAP1));
+
+	VERIFY(m_brushBack.CreatePatternBrush(&m_bmpBack));
 }
 
 void CMFCloaderSFMLDlg::DoDataExchange(CDataExchange* pDX)
@@ -65,6 +70,9 @@ BEGIN_MESSAGE_MAP(CMFCloaderSFMLDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+
+	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_BUTTON1, &CMFCloaderSFMLDlg::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
@@ -126,6 +134,19 @@ void CMFCloaderSFMLDlg::OnPaint()
 	if (IsIconic())
 	{
 		CPaintDC dc(this); // контекст устройства для рисования
+		CDC dcMem;
+		dcMem.CreateCompatibleDC(&dc);
+		CBitmap* pOldBitmap = (CBitmap*)dcMem.SelectObject(&m_bmpEarth);
+		BITMAP bmp = { 0 };
+		m_bmpEarth.GetBitmap(&bmp);
+
+		dc.TransparentBlt(
+			10, 10, bmp.bmWidth, bmp.bmHeight, // destination coordinates and sizes
+			&dcMem,                            // source DC
+			0, 0, bmp.bmWidth, bmp.bmHeight,   // source coordinates and sizes
+			RGB(255, 0, 0));                   // transparent color
+		 // restore DC / free GDI objects 
+		dcMem.SelectObject(pOldBitmap);
 
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
@@ -146,6 +167,42 @@ void CMFCloaderSFMLDlg::OnPaint()
 	}
 }
 
+BOOL CMFCloaderSFMLDlg::OnEraseBkgnd(CDC* pDC)
+{
+	// get clipping rectangle
+	CRect rcClip;
+	pDC->GetClipBox(rcClip);
+	// fill rectangle using a given brush
+	pDC->FillRect(rcClip, &m_brushBack);
+	return TRUE; // returns non-zero to prevent further erasing
+}
+
+HBRUSH CMFCloaderSFMLDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hBrush = NULL;
+	switch (nCtlColor)
+	{
+	case CTLCOLOR_DLG:
+		// just return a not NULL brush handle
+		hBrush = (HBRUSH)m_brushBack;
+		break;
+	case CTLCOLOR_STATIC:
+	{
+		// set text color, transparent back node then 
+		pDC->SetTextColor(m_crStaticText);
+		pDC->SetBkMode(TRANSPARENT);
+		// return a not NULL brush handle
+		hBrush = (HBRUSH)m_brushBack;
+	}
+	break;
+	default:
+		// do the default processing
+		hBrush = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+		break;
+	}
+	return hBrush;
+}
+
 // Система вызывает эту функцию для получения отображения курсора при перемещении
 //  свернутого окна.
 HCURSOR CMFCloaderSFMLDlg::OnQueryDragIcon()
@@ -153,3 +210,12 @@ HCURSOR CMFCloaderSFMLDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CMFCloaderSFMLDlg::OnBnClickedButton1()
+{
+	this->ShowWindow(SW_HIDE);
+	Dialog_Shop dlg;
+	dlg.DoModal();
+	this->ShowWindow(SW_SHOW);
+}

@@ -22,13 +22,22 @@ public:
 
 
 // Реализация
-protected:
+private:
 	HICON m_hIcon;
+	CBitmap m_bmpBack;
+	CBrush m_brushBack;
+	CBitmap m_bmpEarth;
+	COLORREF m_crStaticText;
 
+protected:
 	// Созданные функции схемы сообщений
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
+	BOOL OnEraseBkgnd(CDC* pDC);
+	HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedButton1();
 };

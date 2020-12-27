@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Dialog_Shop.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MFC_loader_SFML.h" />
     <ClInclude Include="MFC_loader_SFMLDlg.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Dialog_Shop.cpp" />
     <ClCompile Include="MFC_loader_SFML.cpp" />
     <ClCompile Include="MFC_loader_SFMLDlg.cpp" />
     <ClCompile Include="pch.cpp">
@@ -207,7 +209,13 @@
     <None Include="res\MFCloaderSFML.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Armor.bmp" />
+    <Image Include="bitmap2.bmp" />
+    <Image Include="Helmet.bmp" />
+    <Image Include="Knife.bmp" />
     <Image Include="res\MFC_loader_SFML.ico" />
+    <Image Include="Shield.bmp" />
+    <Image Include="Sword.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

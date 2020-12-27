@@ -15,7 +15,7 @@ void Game::initVariables() {
 	window = nullptr;
 
 	// set Hero
-	hero.setTexture("resours/Hero_norm.png");
+	hero.setTexture("resours/Hero.png");
 	hero.setPosition(sf::Vector2f(10, 40));
 }
 

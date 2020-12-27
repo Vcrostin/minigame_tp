@@ -15,11 +15,14 @@ private:
 	sf::VideoMode videoMode;
 	sf::Event event;
 	sf::RectangleShape background;
-	
+
 
 
 	void initVariables();
 	void initWindow();
+
+	// Logic
+	bool heroCheckBorder(sf::Vector2f a);
 
 public:
 	// Constructor / Destructor
