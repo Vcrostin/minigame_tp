@@ -3,9 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
+#include <iterator>
 #include <vector>
 #include <algorithm>
+#include <ctime>
+#include <cstdlib>
 #include "Hero.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -18,14 +22,15 @@ private:
 	sf::Event event;
 	sf::RectangleShape background;
 	sf::Font font;
-	std::vector<Hero> enemy; // to do
-
+	std::vector<std::pair<Enemy, sf::Vector2f> > enemy;
+	std::vector<sf::Sprite> sprites;
+	std::vector<sf::Texture> texture;
 	void initVariables();
 	void initWindow();
 	void initCrown();
 	// Logic
 	bool heroCheckBorder(sf::Vector2f a);
-
+	void impact();
 public:
 	// Constructor / Destructor
 

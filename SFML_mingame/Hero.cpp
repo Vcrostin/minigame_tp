@@ -28,6 +28,10 @@ void Hero::setPosition(sf::Vector2f a) {
 	sprite.setPosition(a);
 }
 
+void Hero::setHP(int a) {
+	healthPoint -= a;
+}
+
 void Hero::move(sf::Vector2f a) {
 	sprite.move(a);
 }

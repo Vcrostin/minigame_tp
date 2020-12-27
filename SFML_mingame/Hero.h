@@ -19,6 +19,7 @@ public:
 	void setTexture(std::string fname);
 	void setTexture(sf::Texture& text);
 	void setPosition(sf::Vector2f a);
+	void setHP(int a);
 	void move(sf::Vector2f a);
 	
 	sf::Sprite getSprite();
