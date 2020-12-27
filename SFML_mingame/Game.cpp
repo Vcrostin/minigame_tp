@@ -104,7 +104,8 @@ void Game::impact() {
 	if (iter != enemy.end()) {
 		enemy.erase(iter);
 		hero.setHP(20);
-		
+		if (hero.getHP() <= 0)
+			window->close();
 	}
 }
 
